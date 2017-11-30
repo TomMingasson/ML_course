@@ -60,16 +60,15 @@ def build_index_groups(train):
     nz_train = list(zip(nz_row, nz_col))
 
     grouped_nz_train_byrow = group_by(nz_train, index=0)
-    nz_row_colindices = [(g, np.array([v[1] for v in value]))
-                         for g, value in grouped_nz_train_byrow]
+    nz_row_colindices = [(g, np.array([v[1] for v in value])) for g, value in grouped_nz_train_byrow]
 
     grouped_nz_train_bycol = group_by(nz_train, index=1)
-    nz_col_rowindices = [(g, np.array([v[0] for v in value]))
-                         for g, value in grouped_nz_train_bycol]
+    nz_col_rowindices = [(g, np.array([v[0] for v in value]))for g, value in grouped_nz_train_bycol]
+    
     return nz_train, nz_row_colindices, nz_col_rowindices
 
 
 def calculate_mse(real_label, prediction):
     """calculate MSE."""
     t = real_label - prediction
-    return 1.0 * t.dot(t.T)
+    return 0.5 * t.dot(t.T).mean()
